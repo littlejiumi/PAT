@@ -1,0 +1,22 @@
+#include <cstdio>
+const int MAXV = 100010; //最大值100000
+int n;//n个数
+int a[MAXV];//存放输入整数
+bool vis[MAXV] = {false};//存放整数是否存在
+
+int main() {
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++) {
+      scanf("%d", &a[i]);
+      if(a[i] > 0 && a[i]<MAXV) {
+        vis[a[i]] = true;
+      }
+    }
+    for(int i = 1; i < MAXV; i++){
+      if(!vis[i]){//如果此数不存在了
+          printf("%d", i);//输出它
+          break;
+      }
+    }
+    return 0;
+}
