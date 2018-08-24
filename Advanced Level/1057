@@ -1,0 +1,64 @@
+#include<cstdio>
+#include<stack>
+#include<cstring>
+using namespace std;
+const int maxn = 10010;    //table数组存放最大数目
+const int sqrtn = 361;     //开方后每个block数目 
+
+stack<int> st;
+int block[sqrtn] = {0};
+int table[maxn] = {0};
+
+void peekMedian(int K) {		//寻找第K大的数 
+	int sum = 0;
+	int i = 0;     //第几块 
+	while(sum + block[i] < K) {
+		sum += block[i++];
+	}
+	int num = sqrtn * i;   //i号块第一个数 
+	while(sum + table[num] < K) {
+		sum += table[num++]; 
+	}
+	printf("%d\n", num); 
+}
+
+void Push(int x) {
+	st.push(x);
+	block[x/sqrtn]++;
+	table[x]++;
+}
+
+void Pop(){
+	int a;
+	a=st.top();
+	st.pop();
+	block[a/sqrtn]--;
+	table[a]--;
+	printf("%d\n",a);
+}
+
+int main(){
+	int n;		//查询语句数目 
+	int x;      //查询数字 
+	scanf("%d",&n);
+	char s[20];
+	for(int k = 0; k < n;k++) {
+		scanf("%s", &s);
+		if(strcmp(s, "Push") == 0) {
+			scanf("%d", &x);
+			Push(x);
+		}else if(strcmp(s, "Pop") == 0){
+			if(st.empty() == true) printf("Invalid\n");
+			else{Pop();}
+		}else{
+			if(st.empty() == true) printf("Invalid\n");
+			else{
+				int K = st.size();
+				if( K %2 == 1) K = (K+1)/2;
+				else K = K / 2;
+				peekMedian(K);
+			}
+		}
+	}
+	return 0;
+}
