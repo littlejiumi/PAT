@@ -1,0 +1,16 @@
+#include<cstdio>
+int main() {
+	long long a, b, da, db;
+	int an = 0, bn = 0;
+	scanf("%lld%lld%lld%lld", &a, &da, &b, &db);
+	while(a != 0 ) {
+		if(a % 10 == da) an = an * 10 + da;
+		a /= 10; 
+	}
+	while(b != 0 ) {
+		if(b % 10 == db) bn = bn * 10 + db;
+		b /= 10;
+	}
+	printf("%d", an + bn);
+	return 0;
+} 
