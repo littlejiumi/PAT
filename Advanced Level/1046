@@ -22,4 +22,5 @@ int A[maxn], dis[maxn];
 	 	int temp = dis[r - 1] - dis[l - 1];
 	 	printf("%d", min(temp, sum - temp));
 	 }
+	 return 0;
  }
