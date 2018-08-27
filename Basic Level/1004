@@ -1,0 +1,25 @@
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+
+struct Stu{
+	char name[10],id[10];
+	int score;
+}stu[1005];
+
+bool cmp(Stu a, Stu b) {
+	return a.score > b.score;
+}
+
+int main() {
+	int n;
+	scanf("%d", &n);
+	for(int i = 0; i < n; i++) {
+		scanf("%s %s %d", &stu[i].name, &stu[i].id, &stu[i].score);
+	}
+	sort(stu, stu + n, cmp);
+	printf("%s %s\n", stu[0].name, stu[0].id);
+	printf("%s %s\n", stu[n-1].name, stu[n-1].id);	
+	return 0;
+}
