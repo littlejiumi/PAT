@@ -1,0 +1,27 @@
+#include<cstdio>
+const int maxn = 1005;
+int main() {
+ 	double a[maxn] = {0};
+ 	int e, num1, num2, count = 0;
+ 	double k;
+ 	scanf("%d", &num1);
+ 	for(int i = 1; i <= num1; i++) {
+ 		scanf("%d%lf", &e, &k);
+ 		a[e] += k;
+	 }
+	 scanf("%d", &num2);
+	 for(int i = 1; i <= num2; i++) {
+ 		scanf("%d%lf", &e, &k);
+ 		a[e] += k;
+	 }
+	 for(int i = 0; i < maxn; i++) {
+	 	if(a[i] != 0) count++;
+	 }
+	 printf("%d", count);
+	 for(int i = maxn - 1; i >= 0; i--) {
+	 	if(a[i] != 0) {
+	 		printf(" %d %.1f",i, a[i]);
+		 }
+	 }
+	return 0;
+ }
