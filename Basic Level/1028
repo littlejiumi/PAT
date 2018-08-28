@@ -1,0 +1,62 @@
+#include<cstdio>
+
+struct Person{
+	char name[6];
+	int yy,mm, dd;
+}left, right, youngest, oldest, temp;
+
+void init() {
+	left.yy = youngest.yy = 1814;
+	right.yy = oldest.yy = 2014;
+	left.mm = right.mm = youngest.mm = oldest.mm = 9;
+	left.dd = right.dd = youngest.dd = oldest.dd = 6;
+}
+
+bool older(Person a, Person b) {			//更年长 
+	if(a.yy != b.yy) {
+		return a.yy < b.yy;
+	}
+	else if(a.mm != b.mm) {
+		return a.mm < b.mm;
+	}
+	else {
+		return a.dd < b.dd;
+	}
+}
+
+bool younger(Person a, Person b) {			//更年幼 
+	if(a.yy != b.yy) {
+		return a.yy > b.yy;
+	}
+	else if(a.mm != b.mm) {
+		return a.mm > b.mm;
+	}
+	else {
+		return a.dd > b.dd;
+	}
+}
+
+int main() {
+	init();
+	int n, count = 0;
+	scanf("%d", &n);
+	for(int i = 0; i < n; i++) {
+		scanf("%s %d/%d/%d", &temp.name, &temp.yy, &temp.mm, &temp.dd);
+		if(older(temp, right) && younger(temp, left)) {
+			count++;
+			if(older(temp, oldest)){
+				oldest = temp;
+			}
+			if(younger(temp, oldest)){
+				youngest = temp;
+			}	
+		}
+	}
+	if(count == 0) {
+		printf("0\n");
+	}
+	else {
+		printf("%d %s %s\n", count, oldest.name , youngest.name);
+	}
+	return 0;
+}
