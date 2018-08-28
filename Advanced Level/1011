@@ -1,0 +1,20 @@
+#include<cstdio> 
+char result[3] = {'W','T','L'};
+int main() {
+	int k;
+	double x,ans =1.0;
+	for(int i = 0; i < 3; i++) {
+		double MAX = 0.0;
+		for(int j = 0; j < 3; j++) {
+			scanf("%lf", &x);
+			if(x > MAX) {
+				MAX = x;
+				k = j;
+			}
+		}
+		ans *= MAX;
+		printf("%c ", result[k]);
+	}
+	printf("%.2f",(ans * 0.65 - 1) *2);
+	return 0;
+}
