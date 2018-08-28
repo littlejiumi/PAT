@@ -1,0 +1,39 @@
+#include<cstdio>
+struct Person{
+	char name[20];
+	int hh,mm,ss;
+}person, first, last;
+bool early(Person a, Person b) {
+	if(a.hh != b.hh ){
+		return a.hh <= b.hh;
+	}
+	else if(a.mm <= b.mm) {
+	return a.mm <= b.mm; 
+	}
+	else{
+		return a.ss <= b.ss;
+	}
+}
+
+void init() {
+	last.hh = last.mm =last.ss = 0;
+	first.hh = 24;
+	first.mm = first.ss = 60;
+}
+int main() {
+	init();
+	int n;
+	scanf("%d", &n);
+	for(int i = 0; i < n; i++) {
+		scanf("%s %d:%d:%d", &person.name, &person.hh, &person.mm, &person.ss);
+		if(early(person, first)){
+			first = person;
+		}
+		scanf("%d:%d:%d",  &person.hh, &person.mm, &person.ss);
+		if(early(person, last) == false){
+			last = person;
+		}
+	}
+	printf("%s %s\n", first.name, last.name);
+	return 0;
+}
