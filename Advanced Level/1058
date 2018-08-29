@@ -1,0 +1,29 @@
+//都转换为最小单位
+#include<cstdio>
+const int Galleon = 17 * 29;
+const int Sickle = 29;
+
+int main() {
+	int a1, a2, a3, b1, b2, b3;
+	scanf("%d.%d.%d %d.%d.%d", &a1, &a2, &a3, &b1, &b2, &b3);
+	int a = a1 * Galleon + a2 * Sickle + a3;
+	int b = b1 * Galleon + b2 * Sickle + b3;
+	int c = a + b;
+	printf("%d.%d.%d", c / Galleon, c % Galleon / Sickle, c % Sickle);
+	return 0;
+}
+
+#include<cstdio>
+//每一位考虑进位 
+int main() {
+	int a1, a2, a3, b1, b2, b3;
+	scanf("%d.%d.%d %d.%d.%d", &a1, &a2, &a3, &b1, &b2, &b3);
+	int carry = 0; //进位
+	int c3 = (a3 + b3) % 29;
+	carry = (a3 + b3) / 29;
+	int c2 = (a2 + b2 + carry) % 17;
+	carry = (a2 + b2 + carry) / 17;
+	int c1 = a1 + b1 + carry;
+	printf("%d.%d.%d", c1, c2, c3);
+	return 0;
+}
