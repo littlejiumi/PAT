@@ -1,0 +1,32 @@
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int maxn = 110;
+char A[maxn], B[maxn], ans[maxn] = {0};
+int main() {
+	scanf("%s %s",&A, &B);
+	reverse(A, A + strlen(A));
+	reverse(B, B + strlen(B));
+	int len1 = strlen(A);
+	int len2 = strlen(B);
+	int len = len2> len1?len2: len1;
+	for(int i = 0; i < len; i++) {
+		int numA = i < len1? A[i] - '0' : 0;
+		int numB = i < len2? B[i] - '0' : 0;
+		if(i % 2 == 0){
+			int temp = (numB + numA) % 13;
+			if(temp == 10) ans[i] = 'J';
+			else if(temp == 11) ans[i] = 'Q';
+			else if(temp == 12) ans[i] = 'K';
+			else ans[i] = temp + '0';
+		}else{
+			int temp = numB - numA;
+			if(temp < 0) temp += 10;
+			ans[i] = temp + '0';
+		}
+	}
+	reverse(ans,ans+strlen(ans));
+	puts(ans);	
+	return 0;
+}
