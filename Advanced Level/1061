@@ -1,14 +1,13 @@
 #include<cstdio>
 #include<cstring>
+#include<iostream>
+using namespace std;
 int main() {
 	char week[7][5] = {
 		"MON", "TUE", "WED", "THU","FRI","SAT","SUN"
 	};
 	char str1[70], str2[70], str3[70], str4[70];
-	gets_s(str1);
-	gets_s(str2);
-	gets_s(str3);
-	gets_s(str4);
+	cin>>str1>>str2>>str3>>str4;
 	int len1 = strlen(str1);
 	int len2 = strlen(str2);
 	int len3 = strlen(str3);
