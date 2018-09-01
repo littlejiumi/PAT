@@ -1,8 +1,10 @@
 #include<cstdio>
 #include<cstring>
+#include<iostream>
+using namespace std;
 int main() {
 	char str[10010];
-	gets_s(str);
+	cin>>str;
 	int len = strlen(str);
 	if (str[0] == '-') {
 		printf("-");
