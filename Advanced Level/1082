@@ -1,5 +1,7 @@
 #include<cstdio>
 #include<cstring>
+#include<iostream>
+using namespace std;
 char number[10][5] = {
 	"ling", "yi", "er", "san", "si", "wu", "liu", "qi", "ba", "jiu"
 };
@@ -8,7 +10,7 @@ char wei[5][5] = {
 };
 int main() {
 	char str[15];
-	gets_s(str);
+	cin>>str;
 	int len = strlen(str);
 	int left = 0, right = len - 1;
 	if (str[0] == '-') {
