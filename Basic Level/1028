@@ -1,7 +1,7 @@
 #include<cstdio>
 
 struct Person{
-	char name[6];
+	char name[10];
 	int yy,mm, dd;
 }left, right, youngest, oldest, temp;
 
@@ -14,13 +14,13 @@ void init() {
 
 bool older(Person a, Person b) {			//更年长 
 	if(a.yy != b.yy) {
-		return a.yy < b.yy;
+		return a.yy <= b.yy;
 	}
 	else if(a.mm != b.mm) {
-		return a.mm < b.mm;
+		return a.mm <= b.mm;
 	}
 	else {
-		return a.dd < b.dd;
+		return a.dd <= b.dd;
 	}
 }
 
@@ -29,10 +29,10 @@ bool younger(Person a, Person b) {			//更年幼
 		return a.yy > b.yy;
 	}
 	else if(a.mm != b.mm) {
-		return a.mm > b.mm;
+		return a.mm >= b.mm;
 	}
 	else {
-		return a.dd > b.dd;
+		return a.dd >= b.dd;
 	}
 }
 
@@ -47,7 +47,7 @@ int main() {
 			if(older(temp, oldest)){
 				oldest = temp;
 			}
-			if(younger(temp, oldest)){
+			if(younger(temp, youngest)){
 				youngest = temp;
 			}	
 		}
