@@ -1,8 +1,10 @@
 #include<cstdio>
 #include<cstring>
+#include<iostream>
+using namespace std;
 int main() {
 	char str[1000];
-	gets(str);
+	cin>>str;
 	int len = strlen(str);
 	int count[10] = {0};
 	for(int i = 0; i < len; i++) {
