@@ -1,7 +1,7 @@
 #include<cstdio>
 const int maxn = 1005;
 int main() {
- 	int a[maxn];
+ 	int a[maxn] = {0};
  	int k, e, count = 0;
  	while(scanf("%d%d", &k, &e) != EOF) {
  		a[e] = k;
@@ -10,7 +10,7 @@ int main() {
 	 for(int i = 1; i <= 1000; i++) {
 	 	a[i - 1] = a[i] * i;
 	 	a[i] = 0;
-	 	if(a[i] - 1 != 0){
+	 	if(a[i-1] != 0){
 	 		count++;
 		 }
 	 }
@@ -18,15 +18,16 @@ int main() {
 	 	printf("0 0");
 	 }
 	 else{
-	 	for(int i = 1000; i > 0; i--) {
+	 	for(int i = 1000; i >= 0; i--) {
 	 		if(a[i] != 0) {
 	 			printf("%d %d", a[i], i);
-			 }
-			 count--;
+	 			count--;
 			 if(count != 0) {
 			 	printf(" ");
 			 }
+			 }
+			 
 		 }
 	 }
 	return 0;
- }
+}
