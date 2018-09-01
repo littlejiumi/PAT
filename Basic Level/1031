@@ -34,16 +34,18 @@ int main() {
 
 	for (int i = 0; i < n; i++) {
 		char str[20];
-		scanf("%s", &str);
+		scanf("%s", str);
 		bool ans = jy(str);
 		if (ans == false) {
 			printf("%s\n", str);
-			printf("false");
 			k++;
 		}
 	}
+
 	if (k == 0) {
 		printf("All passed\n");
 	}
 	return 0;
 }
+
+
