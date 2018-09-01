@@ -1,4 +1,4 @@
-//都转换为最小单位
+//都转换为最小单位,有误
 #include<cstdio>
 const int Galleon = 17 * 29;
 const int Sickle = 29;
