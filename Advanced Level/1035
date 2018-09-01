@@ -3,10 +3,10 @@
 struct Person {
 	char name[20];
 	char password[20];
-	bool isChanged = false;
+	bool isChanged;
 }person[1010];
 
-void ifChange(Person &p, int &count) {
+void ifChange(Person& p, int& count) {
 	int len = strlen(p.password);
 	for (int i = 0; i < len; i++) {
 		if (p.password[i] == '1') {
@@ -35,20 +35,24 @@ int main() {
 	int n, count = 0;
 	scanf("%d", &n);
 	for (int i = 0; i < n; i++) {
-		scanf("%s %s", &person[i].name, &person[i].password);
+		scanf("%s %s", person[i].name, person[i].password);
+		person[i].isChanged = false;
+
+	}
+	for (int i = 0; i < n; i++) {
 		ifChange(person[i], count);
 	}
 	if (count == 0) {
 		if (n == 1) {
-			printf("There is 1 account and no account is modified");
+			printf("There is %d account and no account is modified", 1);
 		}
 		else {
-			printf("There is %d account and no account is modified", n);
+			printf("There is %d accounts and no account is modified", n);
 		}
 	}
 	else {
 		printf("%d\n", count);
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < n; i++) {
 			if (person[i].isChanged) {
 				printf("%s %s\n", person[i].name, person[i].password);
 			}
