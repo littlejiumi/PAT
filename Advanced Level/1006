@@ -7,7 +7,7 @@ bool early(Person a, Person b) {
 	if(a.hh != b.hh ){
 		return a.hh <= b.hh;
 	}
-	else if(a.mm <= b.mm) {
+	else if(a.mm != b.mm) {
 	return a.mm <= b.mm; 
 	}
 	else{
