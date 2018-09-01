@@ -1,8 +1,10 @@
 #include<cstdio>
  #include<cstring>
+ #include<iostream>
+ using namespace std;
  int main () {
  	char str[100], ans[40][40];
- 	gets(str);
+ 	cin>>str;
  	int N = strlen(str);
  	int n1 = (N + 2) / 3, n3 = n1, n2 = N + 2 -n1 - n3;
  	for(int i = 1; i <= n1; i++) {
@@ -12,7 +14,7 @@
 	 }
 	 int pos = 0;
 	 for(int i = 1; i <= n1; i++) {
-	 	ans[i][1] = str[pos++];         //为什么是从[1]开始呢 
+	 	ans[i][1] = str[pos++];        
 	 }
 	 for(int j = 2; j <= n2; j++) {
 	 	ans[n1][j] = str[pos++];
@@ -27,4 +29,4 @@
 		 printf("\n");
 	 }
 	 return 0;
- }
+}
