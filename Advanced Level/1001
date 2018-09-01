@@ -10,6 +10,10 @@ int main() {
 		printf("-");
 		sum = -sum;
 	}
+	if(sum == 0) {
+	  ans[0] = '0';
+	  num = 1;
+	}
 	while (sum != 0) {
 		ans[num++] = '0' + sum % 10;
 		sum /= 10;
