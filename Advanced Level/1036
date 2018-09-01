@@ -23,16 +23,17 @@ int main() {
 			F = temp;
 		}
 	}
-	if(M.grade == 101){
-		printf("Absent\n");
-	}else{
-		printf("%s %s\n", M.name, M.ID);
-	}
 	if(F.grade == -1){
 		printf("Absent\n");
 	}else{
 		printf("%s %s\n", F.name, F.ID);
 	}
+	if(M.grade == 101){
+		printf("Absent\n");
+	}else{
+		printf("%s %s\n", M.name, M.ID);
+	}
+	
 	if(M.grade == 101 || F.grade == -1){
 		printf("NA\n");
 	}else{
