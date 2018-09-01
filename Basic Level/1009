@@ -1,8 +1,10 @@
 #include<cstdio>
 #include<cstring>
+#include<iostream>
+using namespace std;
 int main() {
 	char str[90];
-	gets_s(str);
+	cin.getline(str, 90);
 	int len = strlen(str);
 	int r = 0, h = 0;
 	char ans[90][90];
