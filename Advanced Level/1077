@@ -1,4 +1,4 @@
-#include<cstdio>
+#include<iostream>
 #include<cstring>
 #include<algorithm>
 using namespace std;
@@ -9,7 +9,7 @@ int main() {
 	scanf("%d", &n);
 	getchar();
 	for (int i = 0; i < n; i++) {
-		gets_s(s[i]);
+		cin>>str[i];
 		int len = strlen(s[i]);
 		if (len < minLen) minLen = len;
 		for (int j = 0; j < len / 2; j++) {
