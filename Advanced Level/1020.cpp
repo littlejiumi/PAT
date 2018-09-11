@@ -22,7 +22,7 @@ node* create(int postL, int postR, int inL, int inR) {
 	node* root = new node;
 	root->data = post[postR];
 	int k;
-	for (int k = inL; k <= inR; k++) {
+	for ( k = inL; k <= inR; k++) {
 		if (in[k] == post[postR]) {
 			break;
 		}
