@@ -13,7 +13,7 @@ int main() {
 	}
 	for (int i = 1; i < m; i++) {
 		if (hashTable[i] && hashTable[m - i]) {
-			if (i == m - 1 && hashTable[i] <= 1) {
+			if (i == m - i && hashTable[i] <= 1) {
 				continue;
 			}
 			printf("%d %d\n", i, m - i);
