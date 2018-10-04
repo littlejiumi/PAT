@@ -14,19 +14,19 @@ void ifChange(Person& p, int& count) {
 			p.isChanged = true;
 		}
 		else if (p.password[i] == '0') {
-			p.password[i] == '%';
+			p.password[i] = '%';
 			p.isChanged = true;
 		}
 		else if (p.password[i] == 'l') {
-			p.password[i] == 'L';
+			p.password[i] = 'L';
 			p.isChanged = true;
 		}
 		else if (p.password[i] == 'O') {
-			p.password[i] == 'o';
+			p.password[i] = 'o';
 			p.isChanged = true;
 		}
 	}
-	if (p.isChanged == true) {
+	if (p.isChanged ==true) {
 		count++;
 	}
 }
@@ -47,7 +47,7 @@ int main() {
 			printf("There is %d account and no account is modified", 1);
 		}
 		else {
-			printf("There is %d accounts and no account is modified", n);
+			printf("There are %d accounts and no account is modified", n);
 		}
 	}
 	else {
