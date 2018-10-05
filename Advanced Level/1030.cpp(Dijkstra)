@@ -1,0 +1,69 @@
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+int n, m, st, ed;
+const int maxn = 505;
+const int INF = 1000000000;
+int G[maxn][maxn], cost[maxn][maxn];
+int d[maxn], c[maxn], pre[maxn];
+bool vis[maxn] = { false };
+
+void Dijkstra(int s) {
+	fill(d, d + maxn, INF);
+	fill(c, c + maxn, INF);
+	for (int i = 0; i < n; i++) {
+		pre[i] = i;
+	}
+	d[s] = 0; c[s] = 0;
+	for (int i = 0; i < n; i++) {
+		int u = -1, MIN = INF;
+		for (int j = 0; j < n; j++) {
+			if (vis[j] == false && d[j] < MIN) {
+				u = j;
+				MIN = d[j];
+			}
+		}
+		if (u == -1)return;
+		vis[u] = true;
+		for (int v = 0; v < n; v++) {
+			if (vis[v] == false && G[u][v] != INF) {
+				if (d[u] + G[u][v] < d[v]) {
+					d[v] = d[u] + G[u][v];
+					c[v] = c[u] + cost[u][v];
+					pre[v] = u;
+				}
+				else if (d[u] + G[u][v] == d[v]) {
+				  if(c[u]+cost[u][v] < c[v]){
+				    c[v] = c[u] + cost[u][v];
+					pre[v] = u;
+				  }
+					
+				}
+			}
+		}
+	}
+}
+void DFS(int v) {
+	if (v == st) {
+		printf("%d ",v);
+		return;
+	}
+	DFS(pre[v]);        //遍历前一个节点直到起点
+	printf("%d ", v);   //输出该点，此时从起点往回找
+}
+int main() {
+	scanf("%d%d%d%d", &n, &m, &st, &ed);
+	int u, v;
+	fill(G[0], G[0] + maxn * maxn, INF);
+	for (int i = 0; i < m; i++) {
+		scanf("%d%d", &u, &v);
+		scanf("%d%d", &G[u][v], &cost[u][v]);  //这两句得分开写哦，要不会出现段错误，uv还没被赋值呢
+		G[v][u] = G[u][v];
+		cost[v][u] = cost[u][v];
+	}
+	Dijkstra(st);
+	DFS(ed);
+	printf("%d %d\n", d[ed], c[ed]);
+	return 0;
+}
