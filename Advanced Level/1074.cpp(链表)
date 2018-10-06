@@ -16,7 +16,7 @@ int main() {
 	int begin, n, k, address;
 	scanf("%d%d%d", &begin, &n, &k);
 	for (int i = 0; i < n; i++) {
-		scanf("%d", &address);
+		scanf("%d", &address);//先存入address
 		scanf("%d%d", &node[address].data, &node[address].next);
 		node[address].address = address;
 	}
@@ -25,7 +25,7 @@ int main() {
 		node[p].order = count++;
 		p = node[p].next;
 	}
-	sort(node, node + maxn, cmp);
+	sort(node, node + maxn, cmp);        //链表需要重新排序，不将address作为下标，下标从0开始；
 	n = count;
 	for (int i = 0; i < n/k; i++) {
 		for (int j = (i + 1)*k - 1; j > i*k; j--) {
