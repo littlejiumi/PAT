@@ -9,11 +9,11 @@
  	int n1 = (N + 2) / 3, n3 = n1, n2 = N + 2 -n1 - n3;
  	for(int i = 1; i <= n1; i++) {
  		for(int j = 1; j<= n2; j++) {
- 			ans[i][j] = ' ';
+ 			ans[i][j] = ' ';    //一个空白数组
 		 }
 	 }
 	 int pos = 0;
-	 for(int i = 1; i <= n1; i++) {
+	 for(int i = 1; i <= n1; i++) {       //数组位置x加入字符
 	 	ans[i][1] = str[pos++];        
 	 }
 	 for(int j = 2; j <= n2; j++) {
@@ -24,7 +24,7 @@
 	 }
 	 for(int i = 1; i <= n1; i++) {
 	 	for(int j = 1; j <= n2; j++) {
-	 		printf("%c", ans[i][j]);
+	 		printf("%c", ans[i][j]);        //打印数组
 		 }
 		 printf("\n");
 	 }
