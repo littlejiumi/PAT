@@ -1,12 +1,12 @@
 #include<cstdio>
 #include<cstring>
-struct Person {
+struct Person {          //每个人都有name和password，区分是否改变用bool变量区分计数，常用
 	char name[20];
 	char password[20];
-	bool isChanged;
+	bool isChanged;        //重要突破点
 }person[1010];
 
-void ifChange(Person& p, int& count) {
+void ifChange(Person& p, int& count) {//注意需要使用引用才能改变其值
 	int len = strlen(p.password);
 	for (int i = 0; i < len; i++) {
 		if (p.password[i] == '1') {
@@ -21,7 +21,7 @@ void ifChange(Person& p, int& count) {
 			p.password[i] = 'L';
 			p.isChanged = true;
 		}
-		else if (p.password[i] == 'O') {
+		else if (p.password[i] == 'O') {    //注意=和==区别
 			p.password[i] = 'o';
 			p.isChanged = true;
 		}
