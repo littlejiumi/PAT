@@ -5,7 +5,7 @@ using namespace std;
 const int maxn = 10010;
 string str[maxn];
 bool cmp(string a,string b) {
-	return a+b<b+a;
+	return a+b<b+a;         //理解cmp作用，虽然两个数比较，实际作用到整个数组
 }
 
 int main() {
@@ -17,10 +17,10 @@ int main() {
 	sort(str, str + n, cmp);
 	string ans;
 	for (int i = 0; i < n; i++) {
-		ans += str[i];
+		ans += str[i];          //字符串直接拼接
 	}
-	while (ans.size() != 0  && ans[0]=='0') {
-		ans.erase(ans.begin());
+	while (ans.size() != 0  && ans[0]=='0') {   //特判
+		ans.erase(ans.begin());                     //重要，去除前导0的写法
 	}
 	if (ans.size() == 0) {
 		cout << 0;
