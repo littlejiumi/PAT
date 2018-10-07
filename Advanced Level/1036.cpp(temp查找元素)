@@ -3,9 +3,9 @@ struct Person{
 	char name[15];
 	char ID[15];
 	int grade;
-}M, F, temp;
+}M, F, temp;           //只选出分值最高或最低，不用全部存入后sort。可以设temp，随着录入找出M,F
 
-void init() {
+void init() {             //初始化是极端情况
 	M.grade = 101;
 	F.grade = -1;
 }
@@ -15,7 +15,7 @@ int main() {
 	scanf("%d", &n);
 	init();
 	for(int i = 0; i<n; i++) {
-		scanf("%s %c %s %d", &temp.name, &gender, &temp.ID, &temp.grade );
+		scanf("%s %c %s %d", &temp.name, &gender, &temp.ID, &temp.grade );//存入临时temp中
 		if(gender == 'M' && temp.grade < M.grade ) {
 			M = temp;
 		}
