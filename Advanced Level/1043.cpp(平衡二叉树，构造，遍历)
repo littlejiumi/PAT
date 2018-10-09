@@ -1,0 +1,94 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+struct node {
+	int data;
+	node* left;
+	node* right;
+};
+void insert(node* &root, int data) {    //注意加引用
+	if (root == NULL) {    //找不到时插入，并return
+		root = new node;
+		root->data = data;
+		root->left = NULL;
+		root->right = NULL;
+		return;
+	}
+	if (root->data > data) {
+		insert(root->left, data);
+	}
+	else {
+		insert(root->right, data);
+	}
+}
+void preOrder(node* root, vector<int> &a) {
+	if (root == NULL) {
+		return;
+	}
+	a.push_back(root->data);
+	preOrder(root->left, a);
+	preOrder(root->right, a);
+
+}
+void premOrder(node* root, vector<int> &a) {  //想改变数组值，就要引用
+	if (root == NULL) {
+		return;
+	}
+	a.push_back(root->data);
+	
+	premOrder(root->right, a);
+	premOrder(root->left, a);
+
+}
+void postOrder(node* root, vector<int> &a) {
+	if (root == NULL) {
+		return;
+	}
+	
+	postOrder(root->left, a);
+	postOrder(root->right, a);
+	a.push_back(root->data);
+
+}
+void postmOrder(node* root, vector<int> &a) {
+	if (root == NULL) {           //函数必须有return
+		return;
+	}
+	
+	postmOrder(root->right, a);
+	postmOrder(root->left, a);
+	a.push_back(root->data);
+}
+vector<int> origin, pre, prem, post, postm;
+int main() {
+	int n,data;
+	cin >> n;
+	node* root = NULL;    //定义头结点，为空
+	for (int i = 0; i < n; i++) {
+		cin >> data;
+		origin.push_back(data);
+		insert(root,data);                                                                            
+	}
+	preOrder(root, pre);
+	premOrder(root, prem);
+	postOrder(root, post);
+	postmOrder(root, postm);
+	if (origin == pre) {
+		cout << "YES" << endl;
+		for (int i = 0; i < post.size(); i++) {
+			cout << post[i];
+			if (i < post.size() - 1)cout << " ";
+		}
+	}
+	else if (origin == prem) {
+		cout << "YES" << endl;
+		for (int i = 0; i < postm.size(); i++) {
+			cout << postm[i];
+			if (i < postm.size() - 1)cout << " ";
+		}
+	}
+	else {
+		cout << "NO" << endl;
+	}
+	return 0;
+}
