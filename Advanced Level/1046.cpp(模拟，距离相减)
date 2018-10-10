@@ -1,0 +1,29 @@
+#include<cstdio>
+#include<algorithm>
+using namespace std;
+int main() {
+	int n, m, u, v, sum = 0;
+	int dis[100010],s[100010];
+	
+	scanf("%d", &n);
+	for (int i = 1; i <= n; i++) {
+		scanf("%d", &dis[i]);
+		sum += dis[i];
+		s[i] = sum;//最后需要相减求距离，要不用循环会有一个超时
+	}
+
+	scanf("%d", &m);
+
+	int temp;
+	for (int i = 1; i <= m; i++) {
+		int ans = 0;
+		scanf("%d%d", &u, &v);
+		if (u>v) {
+			swap(u, v);
+		}
+		ans = s[v-1]-s[u-1];
+		ans = min(ans, (sum - ans));
+		printf("%d\n", ans);
+	}
+	return 0;
+}
