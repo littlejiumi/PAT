@@ -1,0 +1,39 @@
+#include<cstdio>
+#include<stack>
+using namespace std;
+int main() {
+	int A[1010];
+	stack<int> st;
+	int m, n, k;
+	scanf("%d%d%d",&m,&n,&k);
+
+	while(k--){
+	  int count=1;
+		while (!st.empty()) {
+			st.pop();
+		}
+		for (int j = 1; j <= n; j++) {
+			scanf("%d",&A[j]);
+		}
+		bool flag = true;
+		for (int j = 1; j <= n; j++) {                    //模仿入栈
+			st.push(j);
+			if (st.size() > m) {                      
+				flag = false;
+				break;
+			}
+			while (!st.empty()&& st.top()== A[count] ) {        //注意stack出栈前和取栈顶元素前要判断非空！
+				st.pop();
+				count++;
+			}
+			
+		}
+		if (st.empty()==true && flag == true) {
+			printf("YES\n");
+		}
+		else {
+			printf("NO\n");
+		}
+	}
+	return 0;
+}
