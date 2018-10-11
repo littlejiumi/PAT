@@ -1,0 +1,52 @@
+#include<cstdio>
+#include<algorithm>
+using namespace std;
+const int maxn = 100010;
+struct Node {                       //1.定义结构体，下标为address，有个其他条件
+	int address, key, next;
+	bool flag;
+}node[maxn];
+bool cmp(Node a, Node b) {          //2.排序，根据题意
+	if (a.flag == false || b.flag == false) {
+		return a.flag > b.flag;      //把链表上的放前面
+	}
+	else {
+		return a.key < b.key;
+	}
+}
+int main() {
+	int n,begin,address;
+	scanf("%d %d", &n, &begin);
+	for (int i = 0; i < n; i++) {           //先录入address再赋值
+		scanf("%d", &address);
+		scanf("%d%d", &node[address].key, &node[address].next);
+		node[address].address = address;
+	}
+	for (int i = 0; i <maxn; i++) {           //初始化
+		node[i].flag = false;
+	}
+	int p=begin, count = 0;                 //3.套路，计数并记录链表上的结点
+	while (p != -1) {
+		node[p].flag = true;
+		count++;
+		p = node[p].next;
+	}
+	if (count == 0) {                        //特判，没有结点
+		printf("0 -1\n");
+	}
+	else {
+		printf("%d ", count);
+		sort(node, node + maxn, cmp);
+		printf("%05d\n", node[0].address);      //注意链表的address输出用%05d
+		for (int i = 0; i < count; i++) {
+			if (i < count - 1) {
+				printf("%05d %d %05d\n", node[i].address, node[i].key, node[i + 1].address);
+			}
+			else {
+				printf("%05d %d -1\n", node[i].address, node[i].key);
+			}
+		}
+	}
+	
+	return 0;
+}
