@@ -1,64 +1,68 @@
-#include<cstdio>
-#include<stack>
-#include<cstring>
+#include <cstdio>
+#include <cstring>
+#include <stack>
+#include <vector>
+#include <algorithm>
 using namespace std;
-const int maxn = 10010;    //table数组存放最大数目
-const int sqrtn = 361;     //开方后每个block数目 
+const int lim = 317;
 
 stack<int> st;
-int block[sqrtn] = {0};
-int table[maxn] = {0};
+int x, query;
+int bucket[lim];
+int table[100005];
 
-void peekMedian(int K) {		//寻找第K大的数 
-	int sum = 0;
-	int i = 0;     //第几块 
-	while(sum + block[i] < K) {
-		sum += block[i++];
-	}
-	int num = sqrtn * i;   //i号块第一个数 
-	while(sum + table[num] < K) {
-		sum += table[num++]; 
-	}
-	printf("%d\n", num); 
+void peekMedian() {
+    int K = st.size();
+    if(K % 2 == 1) K = (K + 1) / 2;
+    else K = K / 2;
+    int sum = 0;
+    int idx = 0;
+    for(idx = 0; idx < lim; idx++) {
+        if (sum + bucket[idx] < K) {
+            sum += bucket[idx];
+        }
+        else break;
+    }
+    int b = idx * lim;
+    while(1) {
+        sum += table[b];
+        if(sum >= K) {
+            printf("%d\n", b);
+            break;
+        }
+        b++;
+    }
 }
 
-void Push(int x) {
-	st.push(x);
-	block[x/sqrtn]++;
-	table[x]++;
-}
-
-void Pop(){
-	int a;
-	a=st.top();
-	st.pop();
-	block[a/sqrtn]--;
-	table[a]--;
-	printf("%d\n",a);
-}
-
-int main(){
-	int n;		//查询语句数目 
-	int x;      //查询数字 
-	scanf("%d",&n);
-	char s[20];
-	for(int k = 0; k < n;k++) {
-		scanf("%s", &s);
-		if(strcmp(s, "Push") == 0) {
-			scanf("%d", &x);
-			Push(x);
-		}else if(strcmp(s, "Pop") == 0){
-			if(st.empty() == true) printf("Invalid\n");
-			else{Pop();}
-		}else{
-			if(st.empty() == true) printf("Invalid\n");
-			else{
-				int K = st.size();
-				if( K %2 == 1) K = (K+1)/2;
-				else K = K / 2;
-				peekMedian(K);
-			}
-		}
-	}
-	return 0;
+int main() {
+    memset(bucket, 0, sizeof(bucket));
+    memset(table, 0, sizeof(table));
+    char cmd[20];
+    scanf("%d", &query);
+    for(int i = 0; i < query; i++) {
+        scanf("%s", cmd);
+        if(strcmp(cmd, "Push") == 0) {
+            scanf("%d", &x);
+            st.push(x);
+            bucket[x / lim]++;
+            table[x]++;
+        } else if(strcmp(cmd, "Pop") == 0) {
+            if (st.empty() == true) {
+                printf("Invalid\n");
+            } else {
+                x = st.top();
+                st.pop();
+                bucket[x/lim]--;
+                table[x]--;
+                printf("%d\n", x);
+            }
+        } else {
+            if(st.empty() == true) {
+                printf("Invalid\n");
+            } else {
+                peekMedian();
+            }
+        }
+    }
+    return 0;
 }
