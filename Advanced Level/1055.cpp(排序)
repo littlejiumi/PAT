@@ -1,0 +1,46 @@
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+using namespace std;
+const int maxn = 100010;
+struct Person {
+	char name[9];
+	int age;
+	int net;
+}person[maxn];
+bool cmp(Person a, Person b) {                //重要，比较方法，传入数组的类型
+	if (a.net != b.net) {
+		return a.net >= b.net;
+	}
+	else if (a.age != b.age) {
+		return a.age <= b.age;
+	}
+	else if (strcmp(a.name, b.name) != 0) {
+		return strcmp(a.name, b.name) < 0;           //strcmp需要#include <cstring>
+	}
+}
+int main() {
+	int n, k;
+	scanf("%d%d", &n, &k);
+	for (int i = 0; i < n; i++) {
+		scanf("%s %d %d", person[i].name, &person[i].age, &person[i].net);
+	}
+	sort(person, person + n, cmp);
+	int m, Amin, Amax;
+	for (int i = 1; i <= k; i++) {
+		int count = 0;
+		scanf("%d%d%d", &m, &Amin, &Amax);
+		printf("Case #%d:\n", i);
+		for (int j = 0; j < n; j++) {
+			if (person[j].age >= Amin && person[j].age <= Amax) {
+				printf("%s %d %d\n", person[j].name, person[j].age, person[j].net);
+				count++;
+				if (count == m)break;
+			}
+		}
+		if (count == 0) {
+			printf("None\n");
+		}
+	}
+	return 0;
+}
