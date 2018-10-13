@@ -1,0 +1,50 @@
+#include<cstdio>
+#include<queue>
+using namespace std;
+int np, ng,num;
+struct Player {
+	int w;
+	int r;
+}player[1010];
+int main() {
+	scanf("%d%d", &np, &ng);
+	for (int i = 0; i < np; i++) {
+		scanf("%d", &player[i].w);
+	}
+	queue<int> q;
+	for (int i = 0; i < np; i++) {
+		scanf("%d", &num);
+		q.push(num);
+	}
+	int temp = np, group;
+	while (q.size() != 1) {
+		if (temp%ng == 0) {
+			group = temp / ng;
+		}
+		else {
+			group = temp / ng + 1;
+		}
+		for (int i = 0; i < group; i++) {
+			int k = q.front();    //最重的老鼠
+			for (int j = 0; j < ng; j++) {
+				if (i*ng + j >= temp) {
+					break;
+				}
+				int front = q.front();
+				if (player[front].w > player[k].w) {
+					k = front;
+				}
+				player[front].r = group + 1;
+				q.pop();//没晋级的扔了
+			}
+			q.push(k);  //晋级的加入队列
+		}
+		temp = group;
+	}
+	player[q.front()].r = 1;
+	for (int i = 0; i < np; i++) {
+		printf("%d", player[i].r);
+		if (i < np - 1)printf(" ");
+	}
+	return 0;
+}
