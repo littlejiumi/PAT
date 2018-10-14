@@ -3,7 +3,7 @@
 #include<iostream>
 using namespace std;
 int main() {
-	char week[7][5] = {
+	char week[7][5] = {       //注意二维数组表示字符串的方法
 		"MON", "TUE", "WED", "THU","FRI","SAT","SUN"
 	};
 	char str1[70], str2[70], str3[70], str4[70];
@@ -16,10 +16,10 @@ int main() {
 	for (i = 0; i < len1 && i < len2; i++) {
 		if (str1[i] == str2[i] && str1[i] >= 'A' && str1[i] <= 'G') {
 			printf("%s ", week[str1[i] - 'A']);
-			break;           //找到一个就不用找了
+			break;           
 		}
 	}
-	for (i++; i < len1 && i < len2; i++) {
+	for (i++; i < len1 && i < len2; i++) {//注意写法，相同位置用一个循环，长度取最小
 		if (str1[i] == str2[i]) {
 			if (str1[i] >= '0' && str1[i] <= '9') {
 				printf("%02d:", str1[i] - '0');
