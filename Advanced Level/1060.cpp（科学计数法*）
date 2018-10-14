@@ -1,21 +1,21 @@
 #include<iostream>
 #include<string>
 using namespace std;
-int n;
+int n;   //n位
 string deal(string s, int &e) {
 	int k = 0;
-	while (s.length() > 0 && s[0] == '0') {
+	while (s.length() > 0 && s[0] == '0') {   //去掉前导0
 		s.erase(s.begin());
 	}
-	if (s[0] == '.') {
+	if (s[0] == '.') {        //小于1
 		s.erase(s.begin());
 		while (s.length() > 0 && s[0] == '0') {
 			s.erase(s.begin());
-			e--;
+			e--;          //去掉0,e--
 		}
 	}
 	else {
-		while (k < s.length() && s[k] != '.') {
+		while (k < s.length() && s[k] != '.') {//大于1
 			k++;
 			e++;
 		}
@@ -31,7 +31,7 @@ string deal(string s, int &e) {
 	string res;
 	while (num < n) {
 		if (k < s.length()) res += s[k++];
-		else res += '0';
+		else res += '0';    //用0补位
 		num++;
 	}
 	return res;
