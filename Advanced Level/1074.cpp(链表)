@@ -1,3 +1,4 @@
+//链表struct里（address）,data, next, flag/order;按照flag标记或order排序，初始状态是数组下标是address，后来可能会排序，所以要有结构体里的address;
 #include<cstdio>
 #include<algorithm>
 using namespace std;
