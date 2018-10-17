@@ -1,3 +1,4 @@
+//由于结点没有data，故可直接用vector<int> node[maxn]数组表示
 #include<cstdio>
 #include<vector>
 #include<algorithm>
