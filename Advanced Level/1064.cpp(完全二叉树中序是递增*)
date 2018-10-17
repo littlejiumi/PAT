@@ -3,8 +3,8 @@
 using namespace std;
 const int maxn = 1010;
 int n, number[maxn], CBT[maxn], index = 0;
-void inOrder(int root) {
-	if (root > n) {
+void inOrder(int root) {    //二叉搜索树的中序是递增序列相当于建好了树了，故数列排序，再中序遍历，把data按中序填入目标数组
+	if (root > n) {          //目标数组root从1开始，左子树root*2,右子树root*2+1;
 		return;
 	}
 	inOrder(root * 2);
