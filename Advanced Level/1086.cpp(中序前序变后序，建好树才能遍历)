@@ -1,0 +1,59 @@
+#include<cstdio>
+#include<stack>
+#include<cstring>
+using namespace std;
+const int maxn = 35;
+int n;
+int pre[maxn], in[maxn], post[maxn];
+struct node {
+	int data;
+	node* lchild;
+	node* rchild;
+};
+node* create(int prel, int prer, int inl, int inr) {       //建好树才能遍历
+	if (prel > prer) {
+		return NULL;
+	}
+	int k;
+	for (k = inl; k <= inr; k++) {
+		if (in[k] == pre[prel]) {
+			break;
+		}
+	}
+	int numleft = k - inl;
+	node* root = new node;
+	root->data = pre[prel];
+	root->lchild = create(prel + 1, prel + numleft, inl, k - 1);
+	root->rchild = create(prel + numleft + 1, prer, k + 1, inr);
+	return root;       //注意有返回值
+}
+int num = 0;
+void postOrder(node* root) {
+	if (root == NULL)return;
+	postOrder(root->lchild);
+	postOrder(root->rchild);
+	printf("%d", root->data);
+	num++;
+	if (num < n )printf(" ");
+}
+int main() {
+	int x, num1=0, num2=0;
+	scanf("%d", &n);
+	char input[5];
+	stack<int> st;
+	for (int i = 0; i < 2 * n; i++) {
+		scanf("%s", input);
+		if (strcmp(input, "Push") == 0) {
+			scanf("%d", &x);
+			pre[num1++] = x;
+			st.push(x);
+		}
+		else {
+			in[num2++] = st.top();
+			st.pop();
+		}
+	}
+	node* root = create(0, n - 1, 0, n - 1);
+	postOrder(root);
+	return 0;
+}
