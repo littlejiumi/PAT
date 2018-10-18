@@ -1,0 +1,36 @@
+#include<cstdio>
+#include<vector>
+using namespace std;
+int n, m;
+const int maxn = 110;
+vector<int> node[maxn];
+int numdepth[maxn] = { 0 };
+void DFS(int index, int depth) {
+	numdepth[depth]++;
+	if (node[index].size() == 0)return;
+	for (int i = 0; i < node[index].size(); i++) {
+		DFS(node[index][i], depth + 1);
+	}
+}
+int main() {
+	scanf("%d%d", &n, &m);
+	int id, k, cid;
+	for (int i = 0; i < m; i++) {
+		scanf("%d%d", &id, &k);
+		for (int j = 0; j < k; j++) {
+			scanf("%d", &cid);
+			node[id].push_back(cid);
+		}
+	}
+	DFS(1, 1);
+	int maxd = 0;
+	int o;
+	for (int i = 0; i < maxn; i++) {
+		if (numdepth[i] > maxd) {
+			maxd = numdepth[i];
+			o = i;
+		}
+	}
+	printf("%d %d\n", maxd, o);
+	return 0;
+}
