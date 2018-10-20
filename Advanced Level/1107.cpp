@@ -1,10 +1,11 @@
 #include<cstdio>
 #include<algorithm>
 using namespace std;
-const int N = 1010;
-int father[N];
-int isRoot[N] = { 0 };
-int course[N] = { 0 };
+const int maxn = 1010;
+int c[maxn] = { 0 };     //记录任何一个喜欢cid活动人的编号，这个社交网络根节点就是findFather(c[cid])
+int isRoot[maxn] = { 0 };
+int father[maxn];
+//套路
 int findFather(int x) {
 	while (x != father[x]) {
 		x = father[x];
@@ -25,24 +26,24 @@ void init(int n) {
 	}
 }
 bool cmp(int a, int b) {
-	return a>b;
+	return a > b;
 }
 int main() {
-	int n, k, h;
+	int n,k,cid;
 	scanf("%d", &n);
 	init(n);
 	for (int i = 1; i <= n; i++) {
-		scanf("%d:",&k);
-		for (int j = 1; j <= k; j++) {
-			scanf("%d", &h);
-			if (course[h] == 0) {
-				course[h] = i;
+		scanf("%d:", &k);
+		for (int j = 0; j < k; j++) {
+			scanf("%d", &cid);
+			if (c[cid] == 0) {
+				c[cid] = i;
 			}
-			Union(i, findFather(course[h]));
+			Union(i, findFather(c[cid]));
 		}
 	}
 	for (int i = 1; i <= n; i++) {
-		isRoot[findFather(i)]++;
+		isRoot[findFather(i)]++;       //记录每个网络多少人
 	}
 	int ans = 0;
 	for (int i = 1; i <= n; i++) {
