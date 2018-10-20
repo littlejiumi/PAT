@@ -1,0 +1,73 @@
+//完全错误一般：==&=混淆；输入不正确；题意理解错误
+#include<cstdio>
+#include<queue>
+#include<algorithm>
+using namespace std;
+const int maxn = 110;
+struct node {
+	int lchild, rchild;
+}Node[maxn];
+int n, num = 0;
+bool notRoot[maxn] = {false};
+int strToNum(char c) {
+	if (c == '-') {
+		return -1;
+	}
+	else {
+		notRoot[c - '0'] = true;
+		return c - '0';
+	}
+}
+int findRoot() {
+	for (int i = 0; i < n; i++) {
+		if (notRoot[i] == false) {
+			return i;
+		}
+	}
+}
+void BFS(int root) {
+	queue<int> q;
+	q.push(root);
+	while (!q.empty()) {
+		int front = q.front();
+		q.pop();
+		printf("%d", front);
+		num++;
+		if (num < n) {
+			printf(" ");
+		}
+		else {
+			printf("\n");
+		}
+		if (Node[front].rchild != -1)q.push(Node[front].rchild);
+		if (Node[front].lchild != -1)q.push(Node[front].lchild);
+	}
+}
+void inOrder(int root) {
+	if (root == -1)return;
+	inOrder(Node[root].rchild);
+	num++;
+	printf("%d", root);
+	if (num < n) {
+		printf(" ");
+	}
+	else {
+		printf("\n");
+	}
+	inOrder(Node[root].lchild);
+}
+int main() {
+	scanf("%d", &n);
+	char l, r;
+	for (int i = 0; i < n; i++) {
+		getchar();
+		scanf("%c %c", &l, &r);//%c之间空格很重要，按字符输入
+		Node[i].lchild = strToNum(l);
+		Node[i].rchild = strToNum(r);
+	}
+	int root = findRoot();    //没说root= 0，所以得自己寻找，bool数组存左右结点即不是root
+	BFS(root);
+	num = 0;
+	inOrder(root);
+	return 0;
+}
