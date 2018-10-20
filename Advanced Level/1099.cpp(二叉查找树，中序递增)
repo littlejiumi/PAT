@@ -6,7 +6,7 @@ int in[105];
 int n;
 struct node {
 	int data;
-	int lchild, rchild;
+	int lchild, rchild;    //静态写法，因为给的是结点编号的关系
 }Node[105];
 int num = 0;
 void inorder(int root) {   //递增的中序序列，按照中序遍历将Node赋值
