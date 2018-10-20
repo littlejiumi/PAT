@@ -10,7 +10,7 @@ struct node {
 	node* lchild;
 	node* rchild;
 };
-node* create(int prel, int prer, int inl, int inr) {       //建好树才能遍历
+node* create(int prel, int prer, int inl, int inr) {
 	if (prel > prer) {
 		return NULL;
 	}
@@ -21,7 +21,7 @@ node* create(int prel, int prer, int inl, int inr) {       //建好树才能遍�
 		}
 	}
 	int numleft = k - inl;
-	node* root = new node;
+	node* root = new node;  //每次调用新建一个结点，即取pre[prel]
 	root->data = pre[prel];
 	root->lchild = create(prel + 1, prel + numleft, inl, k - 1);
 	root->rchild = create(prel + numleft + 1, prer, k + 1, inr);
