@@ -19,10 +19,10 @@ void Union(int a, int b) {
 		father[faA] = faB;
 	}
 }
-void init(int n) {
+void init(int n) {       //初始化
 	for (int i = 1; i <= n; i++) {
-		father[i] = i;
-		isRoot[i] = false;
+		father[i] = i;           //自己是自己的父节点
+		isRoot[i] = false;       //都不是根节点
 	}
 }
 bool cmp(int a, int b) {
