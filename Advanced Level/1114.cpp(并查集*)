@@ -23,7 +23,7 @@ void Union(int a, int b) {
 	int faA = findFather(a);
 	int faB = findFather(b);
 	if (faA != faB) {
-		father[max(faA, faB)] = min(faA, faB);
+		father[max(faA, faB)] = min(faA, faB);    //ID最小的为根节点
 	}
 }
 void init(int ID) {
@@ -41,7 +41,7 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		int ID, Father, Mother, k, Child;
 		scanf("%d%d%d%d", &ID, &Father, &Mother, &k);
-		if (father[ID] == -1)father[ID] = ID;
+		if (father[ID] == -1)father[ID] = ID;  并查集只和father[]数组有关
 		if (Father != -1) { //该结点有Father
 			init(Father);     //father[Father]不能为-1
 			Union(ID, Father); //将ID的家人都和ID合并为一个集合
@@ -58,8 +58,8 @@ int main() {
 		scanf("%d%d", &numEstate[ID], &area[ID]);
 	}
 	for (int i = 0; i < maxn; i++) {
-		if (father[i] != -1) {
-			int Father = findFather(i);
+		if (father[i] != -1) {   //这个结点是个人
+			int Father = findFather(i);   //找他的根节点
 			family[Father].ID = Father;
 			family[Father].numMember++;
 			family[Father].sumEstate += numEstate[i];
