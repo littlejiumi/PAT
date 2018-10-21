@@ -1,0 +1,89 @@
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int maxn = 10010;
+int n, numEstate[maxn] = { 0 }, area[maxn] = { 0 };
+int father[maxn];
+struct Family {
+	int ID, numMember, sumEstate, sumArea;
+	double avgEstate, avgArea;
+	Family() {
+		ID = -1;
+		numMember = sumEstate = sumArea = avgEstate = avgArea = 0;
+	}
+}family[maxn];
+int findFather(int x) {
+	while (x != father[x]) {
+		x = father[x];
+	}
+	return x;
+}
+void Union(int a, int b) {
+	int faA = findFather(a);
+	int faB = findFather(b);
+	if (faA != faB) {
+		father[max(faA, faB)] = min(faA, faB);
+	}
+}
+void init(int ID) {
+	if (father[ID] == -1) {
+		father[ID] = ID;
+	}
+}
+bool cmp(Family a, Family b) {
+	if (a.avgArea != b.avgArea)return a.avgArea > b.avgArea;
+	else return a.ID < b.ID;
+}
+int main() {
+	scanf("%d", &n);
+	fill(father, father + maxn, -1); //不能将father[i]=i因为ID!=i
+	for (int i = 0; i < n; i++) {
+		int ID, Father, Mother, k, Child;
+		scanf("%d%d%d%d", &ID, &Father, &Mother, &k);
+		if (father[ID] == -1)father[ID] = ID;
+		if (Father != -1) { //该结点有Father
+			init(Father);     //father[Father]不能为-1
+			Union(ID, Father); //将ID的家人都和ID合并为一个集合
+		}
+		if (Mother != -1) {
+			init(Mother);
+			Union(ID, Mother);
+		}
+		for (int j = 0; j < k; j++) {
+			scanf("%d", &Child);
+			init(Child);
+			Union(ID, Child);
+		}
+		scanf("%d%d", &numEstate[ID], &area[ID]);
+	}
+	for (int i = 0; i < maxn; i++) {
+		if (father[i] != -1) {
+			int Father = findFather(i);
+			family[Father].ID = Father;
+			family[Father].numMember++;
+			family[Father].sumEstate += numEstate[i];
+			family[Father].sumArea += area[i];
+		}
+	}
+	for (int i = 0; i < maxn; i++) {
+		if (family[i].ID != -1) {       //有效节点
+			family[i].avgEstate = 1.0*family[i].sumEstate / family[i].numMember;
+			family[i].avgArea = 1.0*family[i].sumArea / family[i].numMember;
+		}
+	}
+	sort(family, family + maxn, cmp);
+	int numFamily = 0; //记录集合数目
+	for (int i; i < maxn; i++) {
+		if (family[i].ID != -1) {
+			numFamily++;
+		}
+	}
+	printf("%d\n", numFamily);
+	for (int i = 0; i < maxn; i++) {
+		if (family[i].ID != -1) {
+			printf("%04d %d %.3f %.3f\n", family[i].ID, family[i].numMember, family[i].avgEstate, family[i].avgArea);
+		}
+	}
+	return 0;
+}
