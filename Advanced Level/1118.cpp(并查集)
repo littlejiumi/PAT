@@ -29,7 +29,7 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		int k;
 		scanf("%d", &k);
-		if (k) {
+		if (k) {                  //不用考虑那只鸟是根节点，都Union就行
 			int bird, tempbird;
 			scanf("%d", &bird);
 			init(bird);
