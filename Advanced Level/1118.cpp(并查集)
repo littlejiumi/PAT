@@ -1,0 +1,65 @@
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int maxn = 10010;
+int n, m;
+int father[maxn];
+int findFather(int x) {
+	while (x != father[x]) {
+		x = father[x];
+	}
+	return x;
+}
+void Union(int a, int b) {
+	int faA = findFather(a);
+	int faB = findFather(b);
+	if (faA != faB) {
+		father[faA] = faB;
+	}
+}
+void init(int ID) {
+	if (father[ID] == -1) {
+		father[ID] = ID;
+	}
+}
+int main() {
+	scanf("%d", &n);
+	fill(father, father + maxn, -1);
+	for (int i = 0; i < n; i++) {
+		int k;
+		scanf("%d", &k);
+		if (k) {
+			int bird, tempbird;
+			scanf("%d", &bird);
+			init(bird);
+			for (int j = 1; j < k; j++) {
+				scanf("%d", &tempbird);
+				init(tempbird);
+				Union(bird, tempbird);
+			}
+		}
+	}
+	int numTree = 0, numBird = 0;
+	for (int i = 0; i < maxn; i++) {
+		if (father[i] != -1) {
+			numBird++;
+			if (father[i] == i) {
+				numTree++;
+			}
+		}
+	}
+	printf("%d %d\n", numTree, numBird);
+	scanf("%d", &m);
+	for (int i = 0; i < m; i++) {
+		int birdA, birdB;
+		scanf("%d%d", &birdA, &birdB);
+		if (findFather(birdA) == findFather(birdB)) {
+			printf("Yes\n");
+		}
+		else {
+			printf("No\n");
+		}
+	}
+	return 0;
+}
