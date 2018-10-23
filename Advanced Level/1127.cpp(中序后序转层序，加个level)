@@ -1,0 +1,79 @@
+//要头脑清醒啊，想想在哪level+1；
+#include<cstdio>
+#include<queue>
+#include<vector>
+using namespace std;
+int n;
+int in[40], post[40];
+struct node {
+	int data, level;
+	node* lchild;
+	node* rchild;
+};
+node* create(int inL, int inR, int postL, int postR) {
+	if (inL > inR) {
+		return NULL;
+	}
+	node* root = new node;
+	root->data = post[postR];
+	int k;
+	for (k = inL; k <= inR; k++) {
+		if (in[k] == post[postR]) {
+			break;
+		}
+	}
+	int numleft = k - inL;
+	root->lchild = create(inL, k - 1, postL, postL + numleft-1);
+	root->rchild = create(k + 1, inR, postL + numleft, postR - 1);
+	return root;
+}
+int maxl = 0;
+vector<int> v[40];       //每层结点
+void BFS(node* root) {
+	queue<node*> q;
+	root->level = 1;
+	q.push(root);
+	while (!q.empty()) {
+		node* front = q.front();
+		q.pop();
+		v[front->level].push_back(front->data);
+		if (front->level > maxl) maxl = front->level;
+		if (front->lchild != NULL) {
+			front->lchild->level = front->level + 1;
+			q.push(front->lchild);
+		}
+		if (front->rchild != NULL) {
+			front->rchild->level = front->level + 1;
+			q.push(front->rchild);
+		}
+	}
+}
+int main() {
+	int sum = 0;
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &in[i]);
+	}
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &post[i]);
+	}
+	node* root = create(0, n - 1, 0, n - 1);
+	BFS(root);
+	for (int i = 1; i <= maxl; i++) {
+		if ( i % 2 == 0) {
+			for (int j = 0; j < v[i].size(); j++) {
+				printf("%d", v[i][j]);
+				sum++;
+				if (sum < n)printf(" ");
+			}
+		}
+		else {
+			for (int j = v[i].size() - 1; j >= 0; j--) {
+				printf("%d", v[i][j]);
+				sum++;
+				if (sum < n)printf(" ");
+			}
+		}
+	}
+	return 0;
+}
