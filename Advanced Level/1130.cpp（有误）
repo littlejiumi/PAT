@@ -1,0 +1,42 @@
+#include<cstdio>
+#include<vector>
+#include<string>
+using namespace std;
+const int maxn = 35;
+struct node{
+	string str;
+	int lchild, rchild;
+};
+node s[maxn];
+int n,root=1;
+bool isRoot[maxn];
+string DFS(int index) {
+	if (index == -1)return "";
+	if (s[index].rchild != -1) {
+		s[index].str = DFS(s[index].lchild) + s[index].str + DFS(s[index].rchild);
+		if (index != root){
+		  s[index].str = '(' + s[index].str + ')';
+		}
+	}
+	return s[index].str;
+}
+int main() {
+	scanf("%d", &n);
+	for (int i = 0; i < maxn; i++) {
+		isRoot[i] = true;
+	}
+	for (int i = 1; i <= n; i++) {
+		scanf("%s %d %d", s[i].str, &s[i].lchild, &s[i].rchild);
+		if (s[i].lchild != -1)isRoot[s[i].lchild] = false;
+		if (s[i].rchild != -1)isRoot[s[i].rchild] = false;
+	}
+	for (int i = 1; i <n; i++) {
+		if (isRoot[i] == true) {
+			root = i;
+			break;
+		}
+	}
+	string ans = DFS(root);
+	printf("%s", ans);
+	return 0;
+}
