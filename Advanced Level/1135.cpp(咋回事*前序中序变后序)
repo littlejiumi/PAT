@@ -46,3 +46,57 @@ int main() {
 	printf("%d\n", ans);
 	return 0;
 }
+#include<cstdio>
+const int maxn = 50010;
+int n;
+int pre[maxn], in[maxn];
+struct node {
+	int data;
+	node* lchild;
+	node* rchild;
+	node() {
+		node* lchild =NULL;
+		node* rchild = NULL;
+	}
+};
+node* create(int prel, int prer, int inl, int inr) {
+	if (prel > prer) {
+		return NULL;
+	}
+	node* root = new node;
+	root->data = pre[prel];
+	int k;
+	for (k = inl; k <= inr; k++) {
+		if (in[k] == pre[prel]) {
+			break;
+		}
+	}
+	int numLeft = k - inl;
+	root->lchild = create(prel + 1, prel + numLeft, inl, k - 1);
+	root->rchild = create(prel + numLeft + 1, prer, k + 1, inr);
+	return root;
+}
+bool flag = false;
+void postOrder(node* root) {
+	if (root == NULL||flag==true) {
+		return;
+	}
+	postOrder(root->lchild);
+	postOrder(root->rchild);
+	if (flag == false) {
+		printf("%d\n", root->data);
+		flag = true;
+	}	
+}
+int main() {
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &pre[i]);
+	}
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &in[i]);
+	}
+	node* root = create(0, n - 1, 0, n - 1);
+	postOrder(root);
+	return 0;
+}
