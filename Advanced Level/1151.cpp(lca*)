@@ -7,7 +7,7 @@ map<int, int> pos;
 int pre[maxn], in[maxn];
 void lca(int inl, int inr, int preRoot, int a, int b) {   //婉约的建树
 	if (inl > inr) return;
-	int inRoot = pos[pre[preRoot]], aIn = pos[a], bIn = pos[b];  //找出根节点
+	int inRoot = pos[pre[preRoot]], aIn = pos[a], bIn = pos[b];  //找出根节点的序号，中序的序号可以容易判断与根节点的位置关系
 	if (aIn < inRoot && bIn < inRoot)
 		lca(inl, inRoot - 1, preRoot + 1, a, b);
 	else if ((aIn < inRoot && bIn > inRoot) || (aIn > inRoot && bIn < inRoot)) //在此根节点一左一右
