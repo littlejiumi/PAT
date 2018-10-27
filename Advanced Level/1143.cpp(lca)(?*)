@@ -1,0 +1,53 @@
+#include<cstdio>
+#include<algorithm>
+using namespace std;
+const int maxn = 10010;
+int pre[maxn], in[maxn], pos[maxn] = { -1 };
+int m, n;
+void lca(int inl, int inr, int prel, int a, int b) {
+	if (inl > inr) return;
+	int root = pos[pre[prel]], aa = pos[a], bb = pos[b];
+	if (aa < root&&bb < root) {
+		lca(inl, root - 1, prel + 1, a, b);
+	}
+	else if (aa > root&&bb > root) {
+		lca(root + 1, inr, prel + 1 + root - inl, a, b);
+	}
+	else if ((aa<root&&bb>root) || (aa > root&&bb < root)) {
+		printf("LCA of %d and %d is %d.\n", a, b, in[root]);
+		return;
+	}
+	else if (aa == root) {
+		printf("%d is an ancestor of %d.\n", a, b);
+		return;
+	}
+	else if (bb == root) {
+		printf("%d is an ancestor of %d.\n", b, a);
+		return;
+	}
+}
+int main() {
+	scanf("%d%d", &m, &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &in[i]);
+		pre[i] = in[i];
+	}
+	sort(in, in + n);
+	for (int i = 0; i < n; i++) {
+		pos[in[i]] = i;
+	}
+	for (int i = 0; i < m; i++) {
+		int u, v;
+		scanf("%d%d", &u, &v);
+		if (pos[u] == -1 && pos[v] == -1) {
+			printf("ERROR: %d and %d are not found.\n", u, v);
+		}
+		else if (pos[u] == -1 || pos[v] == -1) {
+			printf("ERROR: %d is not found.\n", pos[u] == -1 ? u : v);
+		}
+		else {
+			lca(0, n - 1, 0, u, v);
+		}
+	}
+	return 0;
+}
