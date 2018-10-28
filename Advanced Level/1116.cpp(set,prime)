@@ -1,0 +1,50 @@
+#include<cstdio>
+#include<algorithm>
+#include<cmath>
+#include<set>
+using namespace std;
+int r[10010] = { 0 };
+bool isprime(int a) {
+	if (a <= 1) return false;
+	int Sqrt = sqrt((double)a);
+	for (int i = 2; i <= Sqrt; i++) {
+		if (a % i == 0)
+			return false;
+	}
+	return true;
+}
+int main() {
+	int n,k,q;
+	scanf("%d", &n);
+	for (int i = 1; i <= n; i++) {
+		scanf("%d", &q);
+		r[q] = i;
+	}
+	scanf("%d", &k);
+	set<int> s;
+	for (int i = 0; i < k; i++) {
+		scanf("%d", &q);
+		printf("%04d: ", q);
+		if (r[q] == 0) {
+			printf("Are you kidding?\n");
+			continue;
+		}
+		else if (s.find(q) == s.end()) {
+			s.insert(q);
+		}
+		else {
+			printf("Checked\n");
+			continue;
+		}
+		if (r[q] == 1) {
+			printf("Mystery Award\n");
+		}
+		else if (isprime(r[q])) {
+			printf("Minion\n");
+		}
+		else {
+			printf("Chocolate\n");
+		}
+	}
+	return 0;
+}
