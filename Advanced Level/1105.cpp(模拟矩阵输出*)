@@ -1,0 +1,62 @@
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+const int maxr = 10010;
+const int maxc = 110;
+// matrix为欲输出的矩阵，A为给定的序列
+int matrix[maxr][maxc], A[maxr];
+bool cmp(int a, int b) {
+	return a > b;    // 从大到小排序
+}
+int main() {
+	int N;
+	scanf("%d", &N);    // 序列元素个数
+	for (int i = 0; i < N; i++) {
+		scanf("%d", &A[i]);    // 序列元素
+	}
+	if (N == 1) {    // 只有一个数时直接特判输出
+		printf("%d", A[0]);
+		return 0;
+	}
+	sort(A, A + N, cmp);    // 将序列从大到小排序
+	int m = (int)ceil(sqrt(1.0*N));    //行数
+	while (N%m != 0) {
+		m++;
+	}
+	int n = N / m, i = 1, j = 1, now = 0;
+	int U = 1, D = m, L = 1, R = n;//四个边界的初始数
+	while (now < N) {
+		while (now < N&&j < R) {
+			matrix[i][j] = A[now++];
+			j++;
+		}
+		while (now < N&&i < D) {
+			matrix[i][j] = A[now++];
+			i++;
+		}
+		while (now<N && j>L) {
+			matrix[i][j] = A[now++];
+			j--;
+		}
+		while (now<N &&i>U) {
+			matrix[i][j] = A[now++];
+			i--;
+		}
+		U++, D--, L++, R--;
+		i++, j++;
+		if (now == N - 1) {
+			matrix[i][j] = A[now++];
+		}
+	}
+	for (int i = 1; i <= m; i++) {
+		for (int j = 1; j <= n; j++) {
+			printf("%d", matrix[i][j]);
+			if (j < n) {
+				printf(" ");
+			}
+			else printf("\n");
+		}
+	}return 0;
+}
+
