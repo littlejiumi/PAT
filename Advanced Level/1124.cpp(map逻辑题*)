@@ -1,0 +1,23 @@
+#include<iostream>
+#include<map>
+#include<string>
+using namespace std;
+map<string, int> h;//是否出现过
+bool flag = false; //判断是否有人中奖
+int main() {
+	int n, sk, st;
+	string str;
+	cin >> n >> sk >> st;
+	for (int i = 1; i <= n; i++) {     //不用放数组里，该输出再输出；
+		cin >> str;
+		if (h[str] == 1)st = st + 1;
+		if (i == st && h[str] == 0) {
+			h[str] = 1;
+			cout << str << endl;
+			flag = true;
+			st = st + sk;
+		}
+	}
+	if (flag == false)cout << "Keep going...";
+	return 0;
+}
