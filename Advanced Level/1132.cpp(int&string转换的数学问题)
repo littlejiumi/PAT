@@ -1,0 +1,23 @@
+#include<cmath>
+#include<iostream>
+#include<string>
+using namespace std;
+int main() {
+	int n,num;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> num;
+		string s = to_string(num);           //想知道整数的长度，用to_string函数求.length();
+		int len = s.length();
+		int k = pow(10, len / 2);
+		int a = num /k;
+		int b = num % k;
+		if (a * b != 0 && num % (a*b) == 0) {  //浮点错误：除数为0
+			printf("Yes\n");
+		}
+		else {
+			printf("No\n");
+		}
+	}
+	return 0;
+}
