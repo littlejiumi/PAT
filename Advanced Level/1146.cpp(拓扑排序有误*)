@@ -1,0 +1,39 @@
+#include<cstdio>
+#include<vector>
+using namespace std;
+const int maxn = 1010;
+int main() {
+	vector<int> G[maxn];
+	int n, m,k, in[maxn] = { 0 };
+	scanf("%d%d", &n, &m);
+	int a, b;
+	for (int i = 1; i <= m; i++) {
+		scanf("%d%d", &a, &b);
+		G[a].push_back(b);
+		in[b]++;
+	}
+	scanf("%d", &k);
+	vector<int> error;
+	for (int i = 0; i < k; i++) {	
+		bool flag = true;
+		for (int j = 1; j <= n; j++) {			
+			scanf("%d", &a);
+			if (in[a] != 0)flag = false;
+			for (int c = 0; c < G[a].size(); c++) {
+				int d = G[a][c];
+				in[d]--;
+			}
+			if (flag == true) {
+				continue;
+			}
+			error.push_back(i);
+		}
+	}
+	for (int i = 0; i < error.size(); i++) {
+		if (i == 0)printf("%d", error[i]);
+		else {
+			printf(" %d", error[i]);
+		}
+	}
+	return 0;
+}
