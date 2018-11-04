@@ -1,0 +1,42 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+int num = 0;
+vector<vector<int> > v;
+bool vis[511] = { false };
+void DFS(int index) {
+	vis[index] = true;
+	num++;
+	for (int i = 0; i < v[index].size(); i++) {
+		if (vis[v[index][i]] == false) {
+			DFS(v[index][i]);
+		}
+	}
+}
+int main() {
+	int n, m,a,b,even=0;
+	cin >> n >> m;
+	v.resize(n + 1);
+	for (int i = 1; i <= m; i++) {
+		cin >> a >> b;
+		v[a].push_back(b);
+		v[b].push_back(a);
+	}
+	for (int i = 1; i <= n; i++) {
+		if (i != 1) printf(" ");
+		printf("%d", v[i].size());
+		if (v[i].size() % 2 == 0) {
+			even++;
+		}
+	}
+	printf("\n");
+	DFS(1);
+	if (even == n&&num==n) {
+		printf("Eulerian");
+	}
+	else if (even == n - 2&&num==n)
+		printf("Semi-Eulerian");
+	else
+		printf("Non-Eulerian");
+	return 0;
+}
