@@ -1,0 +1,32 @@
+#include <set>
+#include<cstdio>
+using namespace std;
+int book[50001]; //个数，hash表
+struct node {
+    int value, cnt;
+    bool operator < (const node &a) const {
+        return (cnt != a.cnt) ? cnt > a.cnt : value < a.value; //重载<，咋整的啊
+    }
+};
+int main() {
+    int n, k, num;
+    scanf("%d%d", &n, &k);
+    set<node> s;
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &num);
+        if (i != 0) {
+            printf("%d:", num);
+            int tempCnt = 0;
+            for(auto it = s.begin(); tempCnt < k && it != s.end(); it++) {
+                printf(" %d", it->value);
+                tempCnt++;
+            }
+            printf("\n");
+        }
+        auto it = s.find(node{num, book[num]});
+        if (it != s.end()) s.erase(it);   //为什么需要if里面？
+        book[num]++;
+        s.insert(node{num, book[num]});//再插入
+    }
+    return 0;
+}
