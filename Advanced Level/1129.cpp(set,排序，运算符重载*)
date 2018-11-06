@@ -24,7 +24,7 @@ int main() {
             printf("\n");
         }
         auto it = s.find(node{num, book[num]});
-        if (it != s.end()) s.erase(it);   //为什么需要if里面？
+        if (it != s.end()) s.erase(it);   //如果找到了
         book[num]++;
         s.insert(node{num, book[num]});//再插入
     }
