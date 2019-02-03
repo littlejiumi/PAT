@@ -1,0 +1,29 @@
+#include<cstdio>
+#include<cstring>
+#include<iostream>
+using namespace std;
+int main() {
+	int a, b, sum, num = 0;
+	char ans[15];
+	cin >> a >> b;
+	sum = a + b;      //加和之后变字符数组
+	if (sum < 0) {
+		cout << "-";
+		sum = -sum;
+	}
+	if (sum == 0) {      //按位放入数组时0是终止点
+		ans[0] = '0';
+		num = 1;
+	}
+	while (sum != 0) {     //按位放入数组
+		ans[num++] = '0'+sum % 10;
+		sum /= 10;
+	}
+	for (int i = num - 1; i >= 0; i--) {    //从高到底输出
+		cout << ans[i];
+		if (i % 3 == 0 && i!=0) {      //时刻注意0这个特殊情况
+			cout << ",";
+		}
+	}
+	return 0;
+}
