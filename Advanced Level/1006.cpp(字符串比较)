@@ -1,0 +1,24 @@
+#include<cstdio>
+#include<cstring>
+#include<iostream>
+using namespace std;
+int main() {
+
+	int n;
+	scanf("%d", &n);
+	char Name1[16],Name2[16],early[] = "24:00:00", late[]="00:00:00",name[16],in[9],out[9];
+	for (int i = 0; i < n; i++) {
+		scanf("%s %s %s", name, in, out);
+		if (strcmp(in, early) < 0) {
+			strcpy(Name1, name);
+			strcpy(early, in);
+		}
+		if (strcmp(out, late) > 0) {
+			strcpy(Name2, name);
+			strcpy(late, out);
+		}
+	}
+	printf("%s %s\n", Name1, Name2);
+	system("pause");
+	return 0;
+}
