@@ -60,7 +60,6 @@ int main() {
 	if (sum < 0) {
 		sum = 0;
 	}
-	printf("%d %d %d\n", sum, l, r);
-	system("pause");
+	printf("%d %d %d\n", sum, v[l], v[r]);
 	return 0;
 }
