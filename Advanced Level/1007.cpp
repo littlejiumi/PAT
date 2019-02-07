@@ -33,3 +33,34 @@ int main() {
     printf("%d %d %d\n", dp[k], a[s[k]], a[k]);
     return 0;
 }
+
+
+
+#include<cstdio>
+#include<vector>
+using namespace std;
+int main() {
+	int n;
+	scanf("%d", &n);
+	int sum = -1, temp = 0, l = 0, r = n-1, templ = 0;
+	vector<int> v(n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &v[i]);
+		temp += v[i];
+		if (temp < 0) {
+			temp = 0;
+			templ = i + 1;
+		}
+		else if(temp>sum){
+			sum = temp;
+			l = templ;
+			r = i;
+		}
+	}
+	if (sum < 0) {
+		sum = 0;
+	}
+	printf("%d %d %d\n", sum, l, r);
+	system("pause");
+	return 0;
+}
