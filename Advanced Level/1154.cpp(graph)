@@ -1,0 +1,40 @@
+#include<iostream>
+#include<vector>
+#include<set>
+using namespace std;
+struct node {
+	int a, b;
+};
+int main() {
+	int n, m, k;
+	scanf("%d %d", &n, &m);
+	vector<node> v(m);
+	for (int i = 0; i < m; i++) {
+		scanf("%d %d", &v[i].a, &v[i].b);
+	}
+	scanf("%d", &k);
+	while (k--) {
+		set<int> s;
+		bool flag = true;
+		int w[10009] = { 0 };
+		for (int i = 0; i < n; i++) {
+			scanf("%d", &w[i]);
+			s.insert(w[i]);
+		}
+		for (int j = 0; j < m; j++) {
+			if (w[v[j].a] == w[v[j].b]) {
+				flag = false;
+				break;
+			}
+		}
+
+		if (flag) {
+			printf("%d-coloring\n", s.size());
+		}
+		else {
+			printf("No\n");
+		}
+	}
+	system("pause");
+	return 0;
+}
