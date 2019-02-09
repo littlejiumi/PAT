@@ -135,7 +135,7 @@ int main() {
 			have[stoi(r)] = 1;
 		}
 	}
-	int root = 1;
+	int root = 0;
 	while (have[root] == 1)root++;
 
 	BFS(root);
