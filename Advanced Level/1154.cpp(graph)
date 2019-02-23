@@ -7,33 +7,31 @@ struct node {
 };
 int main() {
 	int n, m, k;
-	scanf("%d %d", &n, &m);
+	cin >> n >> m;
 	vector<node> v(m);
 	for (int i = 0; i < m; i++) {
-		scanf("%d %d", &v[i].a, &v[i].b);
+		cin >> v[i].a >> v[i].b;
 	}
-	scanf("%d", &k);
-	while (k--) {
+	cin >> k;
+	for (int i = 0; i < k; i++) {
 		set<int> s;
 		bool flag = true;
-		int w[10009] = { 0 };
-		for (int i = 0; i < n; i++) {
-			scanf("%d", &w[i]);
-			s.insert(w[i]);
+		vector<int> ve(n);
+		for (int j = 0; j < n; j++) {
+			cin >> ve[j];
+			s.insert(ve[j]);
 		}
-		for (int j = 0; j < m; j++) {
-			if (w[v[j].a] == w[v[j].b]) {
+		for (int k = 0; k < m; k++) {
+			if (ve[v[k].a] == ve[v[k].b]) {
+				cout << "No" << endl;
 				flag = false;
 				break;
 			}
 		}
-
 		if (flag) {
-			printf("%d-coloring\n", s.size());
+			cout << s.size() << "-coloring" << endl;
 		}
-		else {
-			printf("No\n");
-		}
+		
 	}
 	system("pause");
 	return 0;
