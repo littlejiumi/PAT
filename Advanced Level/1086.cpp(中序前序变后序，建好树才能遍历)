@@ -1,59 +1,25 @@
-#include<cstdio>
-#include<stack>
-#include<cstring>
-using namespace std;
-const int maxn = 35;
-int n;
-int pre[maxn], in[maxn], post[maxn];
-struct node {
-	int data;
-	node* lchild;
-	node* rchild;
-};
-node* create(int prel, int prer, int inl, int inr) {
-	if (prel > prer) {
-		return NULL;
-	}
-	int k;
-	for (k = inl; k <= inr; k++) {
-		if (in[k] == pre[prel]) {
-			break;
-		}
-	}
-	int numleft = k - inl;
-	node* root = new node;  //每次调用新建一个结点，即取pre[prel]
-	root->data = pre[prel];
-	root->lchild = create(prel + 1, prel + numleft, inl, k - 1);
-	root->rchild = create(prel + numleft + 1, prer, k + 1, inr);
-	return root;       //注意有返回值
-}
-int num = 0;
-void postOrder(node* root) {
-	if (root == NULL)return;
-	postOrder(root->lchild);
-	postOrder(root->rchild);
-	printf("%d", root->data);
-	num++;
-	if (num < n )printf(" ");
+#include <iostream>
+#include <stack> 
+#include <vector> 
+#include <cstring> 
+using namespace std; 
+vector<int> pre,in,post;
+void postorder(int rootidx,int startidx,int endidx){//根据前序和中序序列求后序序列 
+if(startidx>endidx) return;
+int i=startidx; 
+while(i<endidx&&in[i]!=pre[rootidx]) i++;
+postorder(rootidx+1,startidx,i-1); 
+postorder(rootidx+i-startidx+1,i+1,endidx);
+post.push_back(pre[rootidx]);
 }
 int main() {
-	int x, num1=0, num2=0;
-	scanf("%d", &n);
-	char input[5];
-	stack<int> st;
-	for (int i = 0; i < 2 * n; i++) {
-		scanf("%s", input);
-		if (strcmp(input, "Push") == 0) {
-			scanf("%d", &x);
-			pre[num1++] = x;
-			st.push(x);
-		}
-		else {
-			in[num2++] = st.top();
-			st.pop();
-		}
-	}
-	node* root = create(0, n - 1, 0, n - 1);
-	postOrder(root);
-	return 0;
-}
+  int N; 
+  cin>>N; 
+  stack<int> s; 
+  char pp[5]; //先生成前序序列和中序序列 
+  for(int i=0;i<2*N;i++){ 
+    cin>>pp; if(strlen(pp)==4){//入栈顺序为前序序列 
+    int num; cin>>num; s.push(num);
+    pre.push_back(num); } else{//出栈顺序为中序序列
+    in.push_back(s.top()); s.pop(); } } postorder(0,0,N-1);//生成后序序列 
+    cout<<post[0]; for(int i=1;i<N;i++) cout<<" "<<post[i]; return 0; }
