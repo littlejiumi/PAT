@@ -21,3 +21,27 @@ int main() {
 	}
 	return 0;
 }
+
+
+#include<iostream>
+#include<string>
+using namespace std;
+int main() {
+	int n;
+	string z;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> z;
+		int len = z.length();
+		string t1, t2;
+		t1 = z.substr(0, len / 2);
+		t2 = z.substr(len / 2, len / 2);
+		if (stoi(t1)*stoi(t2) == 0 || (stoi(z) % (stoi(t1)*stoi(t2))) != 0) {  //浮点错误一般是分母取为0了
+			cout << "No" << endl;
+		}
+		else {
+			cout << "Yes" << endl;
+		}
+	}
+	return 0;
+}
