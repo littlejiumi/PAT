@@ -1,0 +1,171 @@
+//一层层遍历，每遍历一个节点，cnt++，统计节点个数。
+//当第一次遇到-1的时候，若cnt=n，说明已经遍历完n个节点，为满二叉树，输出YES。
+//否则，说明后面还有节点，两个节点之间有空缺，不符合满二叉树的性质，输出NO。
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+#include <cstring>
+#include <queue>
+using namespace std;
+const int maxn=25;
+int n;
+struct Node{
+    int l,r;
+    int val;
+    int h;
+};
+
+struct AVLTree{
+    Node node[maxn];
+    int cnt=0;
+    int height(int u){
+        if(u==-1)
+            return 0;
+        return node[u].h;
+    }
+    /**
+    k1 is the current root，(向)右旋，顺时针旋转
+    对k1的左儿子L的左子树L进行了一次插入，所以是LL
+    */
+    int RotateLL(int k1){
+        int k2;
+        k2=node[k1].l;
+        node[k1].l=node[k2].r;
+        node[k2].r=k1;
+        node[k1].h=max(height(node[k1].l),height(node[k1].r))+1;
+        node[k2].h=max(height(node[k2].l),node[k1].h)+1;
+        return k2; //new root
+    }
+    /**
+    k1 is the current root，(向)左旋，逆时针旋转
+    对k1的右儿子R的右子树R进行了一次插入，所以是RR
+    */
+    int RotateRR(int k1){
+        int k2;
+        k2=node[k1].r;
+        node[k1].r=node[k2].l;
+        node[k2].l=k1;
+        node[k1].h=max(height(node[k1].l),height(node[k1].r))+1;
+        node[k2].h=max(height(node[k2].r),node[k1].h)+1;
+        return k2;// new root
+    }
+    /**
+    对k1的左儿子L的右子树R进行插入，所以是LR
+    先对k1的左儿子进行(向)左旋操作
+    再对k1进行(向)右旋操作
+    */
+    int RotateLR(int k1){
+        node[k1].l=RotateRR(node[k1].l);
+        int root=RotateLL(k1);
+        return root;
+    }
+    /**
+    对k1的右儿子R的左子树L进行插入，所以是RL
+    先对k1的右儿子进行(向)右旋操作
+    再对k1进行(向)左旋操作
+    */
+    int RotateRL(int k1){
+        node[k1].r=RotateLL(node[k1].r);
+        int root=RotateRR(k1);
+        return root;
+    }
+    /**
+    插入操作
+    就分LL\LR\RR\RL四种情况
+    */
+    int insert_val(int val,int root){
+        //int res=root;
+        if(root==-1){
+            node[cnt].l=node[cnt].r=-1;
+            node[cnt].val=val;
+            node[cnt].h=1;
+            root=cnt;
+            cnt++;
+            //return cnt;
+        }
+        else if(val<node[root].val){
+            node[root].l=insert_val(val,node[root].l);
+            int left=node[root].l;
+            int right=node[root].r;
+            if(height(left)-height(right)==2){
+                if(val<node[left].val){
+                    root=RotateLL(root);
+                }
+                else{
+                    root=RotateLR(root);
+                }
+            }
+        }
+        else if(val>node[root].val){
+            node[root].r=insert_val(val,node[root].r);
+            int left=node[root].l;
+            int right=node[root].r;
+            if(height(left)-height(right)==-2){
+                if(val>node[right].val){
+                    root=RotateRR(root);
+                }
+                else{
+                    root=RotateRL(root);
+                }
+            }
+        }
+        else{
+            //nothing
+        }
+        node[root].h=max(height(node[root].l),height(node[root].r))+1;
+        return root;
+    }
+}avltree;
+
+bool bfs(int root){
+    int u;
+    int cnt=0;
+    bool first=true;
+    bool mark=true; //标记第一个-1的出现，即没有节点
+    queue<int>q;
+    q.push(root);
+    while(!q.empty()){
+        u=q.front();
+        q.pop();
+        if(u==-1){
+            //按照层次遍历，如果第一次遍历到-1的时候，节点个数cnt=n，则为满二叉树
+            if(mark && cnt==n)
+                return true;
+            else{
+                mark=false;
+                continue;
+            }
+        }
+        else{
+            if(first){
+                printf("%d",avltree.node[u].val);
+                first=false;
+            }
+            else
+                printf(" %d",avltree.node[u].val);
+            cnt++;
+            q.push(avltree.node[u].l);
+            q.push(avltree.node[u].r);
+        }
+    }
+    return false;
+}
+
+int main()
+{
+    int root=-1;
+    int a;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        scanf("%d",&a);
+        root=avltree.insert_val(a,root);
+    }
+
+    if(bfs(root)){
+        printf("\nYES\n");
+    }
+    else{
+        printf("\nNO\n");
+    }
+    return 0;
+}
