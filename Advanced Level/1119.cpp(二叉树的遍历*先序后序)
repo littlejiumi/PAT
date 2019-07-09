@@ -27,7 +27,7 @@ node* create(int preL, int preR, int postL, int postR) {
             break;
         }
     }
-    if(k == postR - 1) isUnique = false;    // 先序第二个结点等于后序倒数第二个结点,说明不唯一
+    if(k == postR - 1) isUnique = false;    // 先序第二个结点等于后序最后一个结点,说明不唯一
     root->lchild = create(preL + 1, preL + numLeft, postL, k);      // 建立左子树
     root->rchild = create(preL + numLeft + 1, preR, k + 1, postR - 1);      // 建立右子树
     return root;    // 返回根结点
